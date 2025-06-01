@@ -1,0 +1,90 @@
+name: Update Submodules and Tokei Stats
+
+on:
+  schedule:
+    - cron: "*/15 * * * *"  # Daily at 6 AM UTC (more reasonable frequency)
+  workflow_dispatch:  # Allow manual triggering
+  push:
+    branches: [main]  # Also run on pushes to main branch
+
+jobs:
+  update_and_analyze:
+    name: Update Submodules and Generate Stats
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo with submodules
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+          token: ${{ secrets.GITHUB_TOKEN }}
+          fetch-depth: 0  # Fetch full history for better submodule handling
+
+      - name: Configure Git
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Update submodules
+        id: update_submodules
+        run: |
+          echo "Checking for submodule updates..."
+          git submodule update --recursive --remote
+
+          # Check if there are any changes
+          if git diff --quiet; then
+            echo "changes=false" >> $GITHUB_OUTPUT
+            echo "No submodule updates available"
+          else
+            echo "changes=true" >> $GITHUB_OUTPUT
+            echo "Submodule updates found"
+          fi
+
+      - name: Install tools for stats generation
+        run: |
+          # Install Rust/Cargo for Tokei
+          curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
+          source ~/.cargo/env
+          cargo install tokei
+
+          # Install gron for JSON processing
+          sudo apt-get update
+          sudo apt-get install -y gron
+
+      - name: Generate Tokei Stats
+        run: |
+          echo "Generating code statistics..."
+          ~/.cargo/bin/tokei --output json | gron > tokei-stats_gron.txt
+
+      - name: Check for stats changes
+        id: check_stats
+        run: |
+          if git diff --quiet tokei-stats_gron.txt 2>/dev/null; then
+            echo "stats_changed=false" >> $GITHUB_OUTPUT
+            echo "No changes in code statistics"
+          else
+            echo "stats_changed=true" >> $GITHUB_OUTPUT
+            echo "Code statistics have changed"
+          fi
+
+      - name: Commit changes
+        if: steps.update_submodules.outputs.changes == 'true' || steps.check_stats.outputs.stats_changed == 'true'
+        uses: EndBug/add-and-commit@v9
+        with:
+          message: |
+            Auto-update: submodules and code stats
+
+            ${{ steps.update_submodules.outputs.changes == 'true' && '- Updated submodules' || '' }}
+            ${{ steps.check_stats.outputs.stats_changed == 'true' && '- Updated code statistics' || '' }}
+          author_name: github-actions[bot]
+          author_email: github-actions[bot]@users.noreply.github.com
+          add: |
+            .
+            tokei-stats_gron.txt
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Create summary
+        run: |
+          echo "## Workflow Summary" >> $GITHUB_STEP_SUMMARY
+          echo "- **Submodules updated:** ${{ steps.update_submodules.outputs.changes }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **Stats changed:** ${{ steps.check_stats.outputs.stats_changed }}" >> $GITHUB_STEP_SUMMARY
