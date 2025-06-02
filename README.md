@@ -1,33 +1,72 @@
 # build_our_own_git_team_challenge
-Our team effort to follow the build_your_own_git_tutorial from codecrafters
+
+A team, 30 day challenge, to complete the [Build Your Own Git](https://app.codecrafters.io/courses/git/overview) tutorial from CodeCrafters.
+
+---
 
 ## Goal
-In order to improve our skills,
-We want to program a little or a lot everyday.
-But Resistance, (aka procrastination, distraction, and perfectionism).
-Get in our way.
 
-So to help us fight procrastination,
-we setup a daily goal of programming 100 Lines of Code * Person.
-Everyday, and then using beeminder.com
-Everybody we get a "fine".
+We want to improve our programming skills. To do that, we aim to program daily—whether it's a small or large amount.
 
-And in order to have something to program.
-We chose a tutorial from [Build your own Git](https://app.codecrafters.io/courses/git/overview)
+The main obstacle is resistance: procrastination, distraction, or perfectionism.
+To counter that, we’re committing to the following:
+
+- For **30 days**
+- Program **100 lines per person per day**
+- Track daily progress using [Beeminder](https://www.beeminder.com)
+- If someone misses a day, they pay a small fine
+
+To stay consistent, we chose a project with structure:
+> Follow the “Build Your Own Git” tutorial together.
+
+---
 
 ## Process
 
-1. Enroll in the class in [CodeCrafters](https://app.codecrafters.io/courses/git/overview)
-1. Get the repository address from the class. This can be done in your 1st lesson:
+### 1. Enroll in the Course
+Start the Git course at CodeCrafters:
+[https://app.codecrafters.io/courses/git/overview](https://app.codecrafters.io/courses/git/overview)
 
-    ```sh
-    $ git remote -v
-    origin https://github.com/elviejo79/build_our_own_git_team_challenge.git (fetch)
-    ```
-1. Send the URL to elviejo79. To add it as as submodule in *whole team repo*. So that beeminder reads that.
-1. Enroll in Beeminder.com. There is *NO NEED* to create a goal, immediately. We will use the team goal
-1. Accept the invitation from beeminder to join the goal: https://www.beeminder.com/elviejo79/program-daily
+### 2. Find Your Repository URL
+After starting the first lesson, check your Git remote:
 
-## When do we start?
+```bash
+git remote -v
+````
 
-Starting on June 4 at 23:59
+You’ll see something like:
+
+```
+origin	https://git.codecrafters.io/5b40f2ab602065df (fetch)
+```
+
+### 3. Send Your Repository to `elviejo79`
+
+Send your GitHub repo URL to `elviejo79`. It will be added as a submodule in the team repository:
+[https://github.com/elviejo79/build\_our\_own\_git\_team\_challenge](https://github.com/elviejo79/build_our_own_git_team_challenge)
+
+This setup allows us to track individual repositories together.
+
+### 4. Join the Beeminder Team Goal
+
+* Create an account at [beeminder.com](https://www.beeminder.com)
+* No need to create your own goal
+* Accept the invite to join the team goal:
+  [https://www.beeminder.com/elviejo79/program-daily](https://www.beeminder.com/elviejo79/program-daily)
+
+---
+
+## FAQ
+
+### When do we start?
+
+The challenge begins on **June 4 at 23:59**.
+
+### When do we finish?
+
+On July 2nd at 23:59
+30 days afters we started
+
+---
+
+We’re not aiming for speed or perfection — just consistent daily practice.
