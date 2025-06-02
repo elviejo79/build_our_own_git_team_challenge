@@ -24,7 +24,8 @@ We chose a tutorial from [Build your own Git](https://app.codecrafters.io/course
     $ git remote -v
     origin https://github.com/elviejo79/build_our_own_git_team_challenge.git (fetch)
     ```
-1. Give the address to elviejo79. To add it as as submodule in *whole team repo*. So that beeminder reads that.
+1. Send the URL to elviejo79. To add it as as submodule in *whole team repo*. So that beeminder reads that.
+1. Enroll in Beeminder.com. There is *NO NEED* to create a goal, immediately. We will use the team goal
 1. Accept the invitation from beeminder to join the goal: https://www.beeminder.com/elviejo79/program-daily
 
 ## When do we start?
