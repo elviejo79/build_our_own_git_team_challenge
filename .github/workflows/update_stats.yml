@@ -94,6 +94,8 @@ jobs:
       - name: Generate Tokei Stats
         run: |
           echo "Generating code statistics..."
+          pwd
+          tokei
           tokei --output json | gron > tokei-stats_gron.txt
 
       - name: Check for stats changes
