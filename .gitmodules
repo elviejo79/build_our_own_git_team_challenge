@@ -1,3 +1,6 @@
 [submodule "agarciafdz"]
 	path = agarciafdz
 	url = https://git.codecrafters.io/5b40f2ab602065df
+[submodule "miniguezg"]
+	path = miniguezg
+	url = https://git.codecrafters.io/312c64645fe3cec8
