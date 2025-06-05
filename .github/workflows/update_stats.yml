@@ -2,17 +2,15 @@ name: Update Submodules and Tokei Stats
 
 on:
   schedule:
-    - cron: "*/55 * * * *"  # Run every half an hour
+    - cron: "*/55 * * * *"  # Run every 55 minutes
   workflow_dispatch:  # Allow manual triggering
   push:
     branches: [main]  # Also run on pushes to main branch
 
 jobs:
-  update_submodules:
-    name: Update Git Submodules
+  update_and_generate_stats:
+    name: Update Submodules and Generate Stats
     runs-on: ubuntu-latest
-    outputs:
-      changes: ${{ steps.update_submodules.outputs.changes }}
 
     steps:
       - name: Checkout repo with submodules
@@ -35,15 +33,15 @@ jobs:
 
           # Check if there are any changes
           if git diff --quiet; then
-            echo "changes=false" >> "$GITHUB_OUTPUT"
+            echo "submodule_changes=false" >> "$GITHUB_OUTPUT"
             echo "No submodule updates available"
           else
-            echo "changes=true" >> "$GITHUB_OUTPUT"
+            echo "submodule_changes=true" >> "$GITHUB_OUTPUT"
             echo "Submodule updates found"
           fi
 
       - name: Commit submodule changes
-        if: steps.update_submodules.outputs.changes == 'true'
+        if: steps.update_submodules.outputs.submodule_changes == 'true'
         uses: EndBug/add-and-commit@v9
         with:
           message: 'Auto-update: submodules'
@@ -51,38 +49,6 @@ jobs:
           author_email: github-actions[bot]@users.noreply.github.com
           add: '.'
           github_token: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Create submodule summary
-        run: |
-          {
-            echo "## Submodule Update Summary"
-            echo "- **Submodules updated:** ${{ steps.update_submodules.outputs.changes }}"
-            if [ "${{ steps.update_submodules.outputs.changes }}" == "true" ]; then
-              echo "- **Status:** Submodules were updated, stats generation will follow"
-            else
-              echo "- **Status:** No submodule changes detected, skipping stats generation"
-            fi
-          } >> "$GITHUB_STEP_SUMMARY"
-
-  generate_stats:
-    name: Generate Tokei Stats
-    runs-on: ubuntu-latest
-#    needs: update_submodules
-#    if: needs.update_submodules.outputs.changes == 'true'
-
-    steps:
-      - name: Checkout latest code
-        uses: actions/checkout@v4
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          ref: main  # Ensure we get the latest main branch
-          fetch-depth: 0
-
-      - name: Pull latest changes
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          git pull origin main
 
       - name: Install tools for stats generation
         run: |
@@ -124,12 +90,20 @@ jobs:
           add: 'tokei-stats_gron.txt'
           github_token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Create stats summary
+      - name: Create summary
         run: |
           {
-            echo "## Stats Generation Summary"
-            echo "- **Stats changed:** ${{ steps.check_stats.outputs.stats_changed }}"
+            echo "## Update Summary"
+            echo "### Submodules"
+            echo "- **Submodules updated:** ${{ steps.update_submodules.outputs.submodule_changes }}"
+            if [ "${{ steps.update_submodules.outputs.submodule_changes }}" == "true" ]; then
+              echo "- **Status:** Submodules were updated"
+            else
+              echo "- **Status:** No submodule changes detected"
+            fi
             echo ""
+            echo "### Code Statistics"
+            echo "- **Stats changed:** ${{ steps.check_stats.outputs.stats_changed }}"
             echo "- **Total lines of code:** $(tokei --output json | jq -r '.Total.code')"
             echo "- **Languages detected:** $(tokei --output json | jq -r '.languages | length')"
           } >> "$GITHUB_STEP_SUMMARY"
