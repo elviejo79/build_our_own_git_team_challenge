@@ -10,3 +10,6 @@
 [submodule "maig/shell"]
 	path = maig/shell
 	url = https://git.codecrafters.io/e31a1e3bf4b1763d
+[submodule "kdchairesl/codecrafters_shell"]
+	path = kdchairesl/codecrafters_shell
+	url = https://git.codecrafters.io/ccefb4036a450006
