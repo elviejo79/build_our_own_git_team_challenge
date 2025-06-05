@@ -2,7 +2,8 @@ name: Update Submodules and Tokei Stats
 
 on:
   schedule:
-    - cron: "*/55 * * * *" # Run every 55 minutes
+    - cron: "55 23 * * *" # Run at 23:55
+    - cron: "55 */4 * * *" # Run at 00:55, 04:55, 08:55, 12:55, 16:55, 20,55
   workflow_dispatch: # Allow manual triggering
   push:
     branches: [main] # Also run on pushes to main branch
@@ -87,7 +88,6 @@ jobs:
             fi
             echo ""
             echo "### Code Statistics"
-            echo "- **Stats changed:** ${{ steps.check_stats.outputs.stats_changed }}"
             echo "- **Total lines of code:** $(./bin/tokei --output json | jq -r '.Total.code')"
             echo "- **Languages detected:** $(./bin/tokei --output json | jq -r '.languages | length')"
           } >> "$GITHUB_STEP_SUMMARY"
