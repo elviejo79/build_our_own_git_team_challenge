@@ -2,7 +2,7 @@ name: Update Submodules and Tokei Stats
 
 on:
   schedule:
-    - cron: "*/30 * * * *"  # Run every half an hour
+    - cron: "*/55 * * * *"  # Run every half an hour
   workflow_dispatch:  # Allow manual triggering
   push:
     branches: [main]  # Also run on pushes to main branch
@@ -96,6 +96,8 @@ jobs:
       - name: Generate Tokei Stats
         run: |
           echo "Generating code statistics..."
+          pwd
+          tokei
           tokei --output json | gron > tokei-stats_gron_new.txt
 
       - name: Check for stats changes
