@@ -2,10 +2,10 @@ name: Update Submodules and Tokei Stats
 
 on:
   schedule:
-    - cron: "*/55 * * * *"  # Run every 55 minutes
-  workflow_dispatch:  # Allow manual triggering
+    - cron: "*/55 * * * *" # Run every 55 minutes
+  workflow_dispatch: # Allow manual triggering
   push:
-    branches: [main]  # Also run on pushes to main branch
+    branches: [main] # Also run on pushes to main branch
 
 jobs:
   update_and_generate_stats:
@@ -18,7 +18,7 @@ jobs:
         with:
           submodules: recursive
           token: ${{ secrets.GITHUB_TOKEN }}
-          fetch-depth: 0  # Fetch full history for better submodule handling
+          fetch-depth: 0 # Fetch full history for better submodule handling
 
       - name: Configure Git
         run: |
@@ -43,49 +43,35 @@ jobs:
       - name: Commit submodule changes
         uses: EndBug/add-and-commit@v9
         with:
-          message: 'Auto-update: submodules'
+          message: "Auto-update: submodules"
           author_name: github-actions[bot]
           author_email: github-actions[bot]@users.noreply.github.com
-          add: '.'
+          add: "."
           github_token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Install tools for stats generation
+      - name: Install gron for JSON processing
         run: |
-          # Install Tokei using pre-installed cargo
-          cargo install tokei
-
-          # Install gron for JSON processing
           sudo apt-get update
           sudo apt-get install -y gron
+
+      - name: Make custom Tokei executable
+        run: |
+          chmod +x bin/tokei
 
       - name: Generate Tokei Stats
         run: |
           echo "Generating code statistics..."
           pwd
-          tokei
-          tokei --output json | gron > tokei-stats_gron_new.txt
-
-      - name: Check for stats changes
-        id: check_stats
-        run: |
-          # Compare new stats with existing stats (if it exists)
-          if [ -f tokei-stats_gron.txt ] && cmp -s tokei-stats_gron.txt tokei-stats_gron_new.txt; then
-            echo "stats_changed=false" >> "$GITHUB_OUTPUT"
-            echo "No changes in code statistics"
-            rm tokei-stats_gron_new.txt  # Clean up temp file
-          else
-            echo "stats_changed=true" >> "$GITHUB_OUTPUT"
-            echo "Code statistics have changed"
-            mv tokei-stats_gron_new.txt tokei-stats_gron.txt  # Replace with new stats
-          fi
+          ./bin/tokei
+          ./bin/tokei --output json | gron > tokei-stats_gron.txt
 
       - name: Commit stats changes
         uses: EndBug/add-and-commit@v9
         with:
-          message: 'Auto-update: code statistics'
+          message: "Auto-update: code statistics"
           author_name: github-actions[bot]
           author_email: github-actions[bot]@users.noreply.github.com
-          add: 'tokei-stats_gron.txt'
+          add: "tokei-stats_gron.txt"
           github_token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Create summary
@@ -102,6 +88,6 @@ jobs:
             echo ""
             echo "### Code Statistics"
             echo "- **Stats changed:** ${{ steps.check_stats.outputs.stats_changed }}"
-            echo "- **Total lines of code:** $(tokei --output json | jq -r '.Total.code')"
-            echo "- **Languages detected:** $(tokei --output json | jq -r '.languages | length')"
+            echo "- **Total lines of code:** $(./bin/tokei --output json | jq -r '.Total.code')"
+            echo "- **Languages detected:** $(./bin/tokei --output json | jq -r '.languages | length')"
           } >> "$GITHUB_STEP_SUMMARY"
