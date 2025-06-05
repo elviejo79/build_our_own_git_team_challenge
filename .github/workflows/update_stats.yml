@@ -80,6 +80,8 @@ jobs:
 
       - name: Pull latest changes
         run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
           git pull origin main
 
       - name: Install tools for stats generation
@@ -94,17 +96,20 @@ jobs:
       - name: Generate Tokei Stats
         run: |
           echo "Generating code statistics..."
-          tokei --output json | gron > tokei-stats_gron.txt
+          tokei --output json | gron > tokei-stats_gron_new.txt
 
       - name: Check for stats changes
         id: check_stats
         run: |
-          if git diff --quiet tokei-stats_gron.txt 2>/dev/null; then
+          # Compare new stats with existing stats (if it exists)
+          if [ -f tokei-stats_gron.txt ] && cmp -s tokei-stats_gron.txt tokei-stats_gron_new.txt; then
             echo "stats_changed=false" >> "$GITHUB_OUTPUT"
             echo "No changes in code statistics"
+            rm tokei-stats_gron_new.txt  # Clean up temp file
           else
             echo "stats_changed=true" >> "$GITHUB_OUTPUT"
             echo "Code statistics have changed"
+            mv tokei-stats_gron_new.txt tokei-stats_gron.txt  # Replace with new stats
           fi
 
       - name: Commit stats changes
