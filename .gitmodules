@@ -7,3 +7,6 @@
 [submodule "kada"]
 	path = kada
 	url = https://git.codecrafters.io/fd79006c4b39f0f4
+[submodule "zzantares"]
+	path = zzantares
+	url = https://git.codecrafters.io/16ab66ba2d68d8c2
