@@ -41,7 +41,6 @@ jobs:
           fi
 
       - name: Commit submodule changes
-        if: steps.update_submodules.outputs.submodule_changes == 'true'
         uses: EndBug/add-and-commit@v9
         with:
           message: 'Auto-update: submodules'
@@ -81,7 +80,6 @@ jobs:
           fi
 
       - name: Commit stats changes
-        if: steps.check_stats.outputs.stats_changed == 'true'
         uses: EndBug/add-and-commit@v9
         with:
           message: 'Auto-update: code statistics'
