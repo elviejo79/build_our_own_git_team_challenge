@@ -4,3 +4,6 @@
 [submodule "miniguezg"]
 	path = miniguezg
 	url = https://git.codecrafters.io/312c64645fe3cec8
+[submodule "kada"]
+	path = kada
+	url = https://git.codecrafters.io/fd79006c4b39f0f4
