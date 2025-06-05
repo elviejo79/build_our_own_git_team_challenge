@@ -1,9 +1,12 @@
 [submodule "agarciafdz"]
 	path = agarciafdz
 	url = https://git.codecrafters.io/5b40f2ab602065df
-[submodule "miniguezg"]
-	path = miniguezg
-	url = https://git.codecrafters.io/312c64645fe3cec8
 [submodule "zzantares"]
 	path = zzantares
 	url = https://git.codecrafters.io/16ab66ba2d68d8c2
+[submodule "jarturomora/curso-matic"]
+	path = jarturomora/curso-matic
+	url = https://github.com/jarturomora/curso-matic
+[submodule "maig/shell"]
+	path = maig/shell
+	url = https://git.codecrafters.io/e31a1e3bf4b1763d
