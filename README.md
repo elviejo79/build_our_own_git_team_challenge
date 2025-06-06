@@ -1,5 +1,5 @@
 # build_our_own_git_team_challenge
-
+Let's program 100 lines of code for 30 days as a team.
 A team, 30 day challenge, to complete the [Build Your Own Git](https://app.codecrafters.io/courses/git/overview) tutorial from CodeCrafters.
 
 ---
@@ -18,6 +18,11 @@ To counter that, we’re committing to the following:
 
 To stay consistent, we chose a project with structure:
 > Follow the “Build Your Own Git” tutorial together.
+
+---
+## Status
+
+![Our current advances](https://www.beeminder.com/elviejo79/program-daily.png)
 
 ---
 
@@ -64,7 +69,7 @@ The challenge begins on **June 4 at 23:59**.
 
 ### When do we finish?
 
-On July 2nd at 23:59
+On July 4th at 23:59
 30 days afters we started
 
 ---
