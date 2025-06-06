@@ -22,6 +22,7 @@ To stay consistent, we chose a project with structure:
 
 ![Our current advances](https://www.beeminder.com/elviejo79/program-daily.png)
 
+[Look at the goal in Beeminder](https://www.beeminder.com/elviejo79/program-daily)
 ## Process
 
 ### 1. Join the Beeminder Team Goal
