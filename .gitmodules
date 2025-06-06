@@ -2,7 +2,7 @@
 	path = elviejo79/build_a_git
 	url = https://git.codecrafters.io/5b40f2ab602065df
 [submodule "zzantares"]
-	path = julio/zzantares
+	path = julio/codecrafters
 	url = https://git.codecrafters.io/16ab66ba2d68d8c2
 [submodule "jarturomora/curso-matic"]
 	path = jarturomora/curso-matic
