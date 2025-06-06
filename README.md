@@ -1,8 +1,7 @@
-# build_our_own_git_team_challenge
+# 3 Klocs team challenge
 Let's program 100 lines of code for 30 days as a team.
-A team, 30 day challenge, to complete the [Build Your Own Git](https://app.codecrafters.io/courses/git/overview) tutorial from CodeCrafters.
-
----
+If you don't know what to program you can find one of this tutorals from CodeCrafters:
+[Build Your Own...](https://app.codecrafters.io/courses/git/overview).
 
 ## Goal
 
@@ -19,12 +18,9 @@ To counter that, we’re committing to the following:
 To stay consistent, we chose a project with structure:
 > Follow the “Build Your Own Git” tutorial together.
 
----
 ## Status
 
 ![Our current advances](https://www.beeminder.com/elviejo79/program-daily.png)
-
----
 
 ## Process
 
@@ -58,8 +54,6 @@ Send your GitHub repo URL to `elviejo79`. It will be added as a submodule in the
 [https://github.com/elviejo79/build\_our\_own\_git\_team\_challenge](https://github.com/elviejo79/build_our_own_git_team_challenge)
 
 This setup allows us to track individual repositories together.
-
----
 
 ## FAQ
 
