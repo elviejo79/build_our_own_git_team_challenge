@@ -13,3 +13,6 @@
 [submodule "kdchairesl/codecrafters_shell"]
 	path = kdchairesl/codecrafters_shell
 	url = https://git.codecrafters.io/ccefb4036a450006
+[submodule "maig/codecrafters_elixir_shell"]
+	path = maig/codecrafters_elixir_shell
+	url = https://git.codecrafters.io/eb5c42dbbf433fa6
