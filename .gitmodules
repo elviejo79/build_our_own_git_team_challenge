@@ -16,3 +16,6 @@
 [submodule "maig/codecrafters_elixir_shell"]
 	path = maig/codecrafters_elixir_shell
 	url = https://git.codecrafters.io/eb5c42dbbf433fa6
+[submodule "elviejo79/RESTLY"]
+	path = elviejo79/RESTLY
+	url = https://github.com/elviejo79/RESTLY.git
