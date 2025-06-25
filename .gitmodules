@@ -19,3 +19,6 @@
 [submodule "elviejo79/RESTLY"]
 	path = elviejo79/RESTLY
 	url = https://github.com/elviejo79/RESTLY.git
+[submodule "kdchairesl/sockets-and-pipes-by-cmj"]
+	path = kdchairesl/sockets-and-pipes-by-cmj
+	url = https://github.com/kdchaires/sockets-and-pipes-by-cmj.git
