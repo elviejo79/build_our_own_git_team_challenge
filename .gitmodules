@@ -22,3 +22,6 @@
 [submodule "kdchairesl/sockets-and-pipes-by-cmj"]
 	path = kdchairesl/sockets-and-pipes-by-cmj
 	url = https://github.com/kdchaires/sockets-and-pipes-by-cmj.git
+[submodule "maig/july_repo"]
+	path = maig/july_repo
+	url = https://git.codecrafters.io/ba1db9eb0104a298
